@@ -1,0 +1,73 @@
+notation:
+[fn] - function to write
+[fn*] - function already exists in outline
+
+things to define:
+ - word_list: set a list of words/phrases to choose from.
+
+things to keep track of:
+ - letters already guessed
+ - number of incorrect guesses / number of guesses remaining before game over
+ 
+code outline:
+[fn] main function to start hangman game
+
+	[fn] select one word randomly from word_list (answer)
+	
+	[fn] create game board
+		- game board will be a list of characters. the length of the board equals the length of the answer.
+		- initial board will contain _ for each letter in answer
+		- if spaces appear in answer, the board will contain a space instead of _  
+	
+	*** GAME LOOP START ***
+	
+	[fn] print game board
+		- print board to show up as one line, not appearing as the list. 
+			ex: the cat shows up as _ _ _   _ _ _
+		
+	prompt player to guess a letter (guess)
+	
+	check validity of input, and reprompt player if any of these conditions happen:
+		no characters 
+		more than one character
+		has non-alpha characters
+		guess was already made
+			
+	[fn] if guess is in answer:
+		[fn] update board to show where letter appears
+		[fn*] print updated board 
+		[fn] check if board shows complete answer
+			if yes, player wins
+			if no, continue playing
+		
+		- if guess is not in answer:
+			+1 to incorrect guess count
+			tell player that guess was wrong
+			check if player has hit max number of guesses allowed
+				if yes, game over, player loses
+				if no, continue playing
+	
+	*** GAME LOOP END ***
+		
+	if player wins or player hits game over
+		ask player if they want to play again, prompt player for yes/no answer
+			if yes, play hangman again
+			if no, quit
+
+			
+MVP
+- player has 6 incorrect tries before game over.  # tries remaining shows in text form (no hangman art)
+- player sees game board in "_ _ _   _ _ _" format
+- game supports both words and phrases, small list of words/phrases will be added for testing
+
+
+MF for Final
+- extend word_list
+- add hangman art to game board
+
+
+Nice to Have
+- print how many guesses it took for a player to win for that word
+- let players add their own words/phrases to word_list
+- ask for player's name, refer to them by name while playing
+- change settings option: vary the number of incorrect tries (would have to change/remove hangman art)
