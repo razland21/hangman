@@ -14,33 +14,37 @@ def select_answer(lst):
 		# - if spaces appear in answer, the board will contain a space instead of _  
 
 def create_board(word):
-	pass
+	board = []
+	for i in word:
+		if i == " ":
+			board.append(" ")
+		else:
+			board.append("_")
+	
+	return board
 
-# [fn] print game board
+#[fn] print game board
 	# - print board to show up as one line, not appearing as the list. 
 		# ex: the cat shows up as _ _ _   _ _ _
 	# let player know how many more guesses they have (later: use number of guesses to show game art)
 
 def print_board(board, guesses_left):
-	pass
+	for spot in board:
+		print spot,
+	print "\nNumber of incorrect guesses remaining: {}".format(guesses_left)
 
-# [fn] update board to show where letter appears
+#[fn] update board to show where letter appears
 	#- find indices where guess is located and replace _ with letter.
 	
 def update_board(guess, board):
 	pass
 
-# [fn] check if board shows complete answer
+#[fn] check if board shows complete answer
 def player_wins(game_board):
 	pass
 			
 	
-# [fn] check validity of input, and reprompt player if any of these conditions happen:
-	# no characters 
-	# more than one character
-	# has non-alpha characters
-	# guess was already made			
-
+#[fn] check validity of guess input
 def valid_guess(guess, guess_list):
 	if len(guess) == 0:
 		print "You need to guess something!  \n"
@@ -85,9 +89,10 @@ def play_hangman():
 		# check validity of input
 		if not valid_guess(guess, guess_list):
 			continue
-		
-				
-		# [fn] if guess is in answer:
+
+		#add guess to guess_list
+		guess_list.append(guess)		
+
 		if guess in answer:
 			# [fn] update board to show where letter appears
 			update_board(guess, game_board)
