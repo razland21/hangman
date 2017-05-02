@@ -40,8 +40,11 @@ def update_board(guess, board):
 	pass
 
 #[fn] check if board shows complete answer
-def player_wins(game_board):
-	pass
+def player_wins(board):
+	if "_" in board:
+		return False
+	else:
+		return True
 			
 	
 #[fn] check validity of guess input
@@ -101,9 +104,10 @@ def play_hangman():
 			print_board(game_board, guesses_left)
 			# [fn] check if board shows complete answer
 			if player_wins(game_board):
-				pass
-				# if yes, player wins
-				# if no, continue playing
+				break
+			else:
+				continue
+				
 			
 			# - if guess is not in answer:
 				# +1 to incorrect guess count
