@@ -31,14 +31,25 @@ def create_board(word):
 def print_board(board, guesses_left):
 	for spot in board:
 		print spot,
-	print "\nNumber of incorrect guesses remaining: {}".format(guesses_left)
+	print "\nNumber of incorrect guesses remaining: {} \n".format(guesses_left)
 
-#[fn] update board to show where letter appears
-	#- find indices where guess is located and replace _ with letter.
+#[fn] update board to show where letter appears	
+def update_board(letter, indices, board):
+	for position in indices:
+		board[position] = letter.upper()
+
+#[fn] find locations of guess in board
+def find_locations(char, word):
+	posn = 0
+	locations = []
+	while posn < len(word):
+		if char == word[posn]:
+			locations.append(posn)
+		posn += 1
 	
-def update_board(guess, board):
-	pass
-
+	return locations
+	
+	
 #[fn] check if board shows complete answer
 def player_wins(board):
 	if "_" in board:
@@ -74,7 +85,7 @@ def play_hangman():
 	guesses_left = 6
 
 	#[fn] select one word randomly from word_list (answer)
-	answer = select_answer(word_list)
+	answer = select_answer(word_list).upper()
 	
 	#[fn] create game board
 	game_board = create_board(answer)
@@ -94,32 +105,52 @@ def play_hangman():
 			continue
 
 		#add guess to guess_list
-		guess_list.append(guess)		
+		guess_list.append(guess)
+		num_guesses += 1
 
 		if guess in answer:
-			# [fn] update board to show where letter appears
-			update_board(guess, game_board)
+			# [fn] create list of indices where guess appears in answer 
+			locations = find_locations(guess, answer)
 			
-			# [fn*] print updated board 
-			print_board(game_board, guesses_left)
+			# [fn] update board to show where letter appears
+			update_board(guess, locations, game_board)
+			
 			# [fn] check if board shows complete answer
 			if player_wins(game_board):
+				print_board(game_board, guesses_left)
+				print "Congratulations, you win! The answer is: {}\n".format(answer)
 				break
 			else:
+				print "\nYes, {} is in the answer! \n".format(guess)
 				continue
 				
+		else:  #guess is not in answer
+			guesses_left -= 1
+			print "\nSorry, {} is not in the answer.".format(guess)
 			
-			# - if guess is not in answer:
-				# +1 to incorrect guess count
-				# tell player that guess was wrong
-				# check if player has hit max number of guesses allowed
-					# if yes, game over, player loses
-					# if no, continue playing
-		
+			if guesses_left == 0:
+				print "\nGAME OVER.  The answer is: {}.\n".format(answer)
+				break
+			elif guesses_left == 1:
+				print "\nOne more incorrect guess, and it'll be game over...\n"
+			else:
+				print "Guess again! \n"
+					
 		# *** GAME LOOP END ***
-		
-	# if player wins or player hits game over
-		# ask player if they want to play again, prompt player for yes/no answer
-			# if yes, play hangman again
-			# if no, quit
+	
+	#if player wins or player hits game over - play again or quit.
+	while True:
+		replay = raw_input("Do you want to play again?  Type 'yes' or 'no'.: ").strip().lower()
+		print "\n"
+		if replay == "yes":
+			print "Alright, let's play again!"
+			play_hangman()
+			break
+		elif replay == "no":
+			print "Thanks for playing!"
+			break 
+		else:
+			print "Sorry, I'm not sure what you mean by {}.".format(replay)
+			
+
 
