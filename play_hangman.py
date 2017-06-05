@@ -30,8 +30,8 @@ def create_board(word):
 
 def print_board(board, guesses_left):
 	for spot in board:
-		print spot,
-	print "\nNumber of incorrect guesses remaining: {} \n".format(guesses_left)
+		print(spot, end=' ')
+	print("\nNumber of incorrect guesses remaining: {} \n".format(guesses_left))
 
 #[fn] update board to show where letter appears	
 def update_board(letter, indices, board):
@@ -61,16 +61,16 @@ def player_wins(board):
 #[fn] check validity of guess input
 def valid_guess(guess, guess_list):
 	if len(guess) == 0:
-		print "You need to guess something!  \n"
+		print("You need to guess something!  \n")
 		return False
 	elif not guess.isalpha():
-		print "You need to enter an actual letter. \n"
+		print("You need to enter an actual letter. \n")
 		return False
 	elif len(guess) > 1:
-		print "You can only guess one letter at a time.  \n"
+		print("You can only guess one letter at a time.  \n")
 		return False
 	elif guess in guess_list:
-		print "You have already guessed {}. Try another letter. \n".format(guess)
+		print("You have already guessed {}. Try another letter. \n".format(guess))
 		return False
 	else:
 		return True
@@ -98,7 +98,7 @@ def play_hangman():
 		print_board(game_board, guesses_left)
 			
 		# prompt player to guess a letter (guess)
-		guess = raw_input("Guess one letter: ").strip().upper()
+		guess = input("Guess one letter: ").strip().upper()
 		
 		# check validity of input
 		if not valid_guess(guess, guess_list):
@@ -118,39 +118,39 @@ def play_hangman():
 			# [fn] check if board shows complete answer
 			if player_wins(game_board):
 				print_board(game_board, guesses_left)
-				print "Congratulations, you win! The answer is: {}\n".format(answer)
+				print("Congratulations, you win! The answer is: {}\n".format(answer))
 				break
 			else:
-				print "\nYes, {} is in the answer! \n".format(guess)
+				print("\nYes, {} is in the answer! \n".format(guess))
 				continue
 				
 		else:  #guess is not in answer
 			guesses_left -= 1
-			print "\nSorry, {} is not in the answer.".format(guess)
+			print("\nSorry, {} is not in the answer.".format(guess))
 			
 			if guesses_left == 0:
-				print "\nGAME OVER.  The answer is: {}.\n".format(answer)
+				print("\nGAME OVER.  The answer is: {}.\n".format(answer))
 				break
 			elif guesses_left == 1:
-				print "\nOne more incorrect guess, and it'll be game over...\n"
+				print("\nOne more incorrect guess, and it'll be game over...\n")
 			else:
-				print "Guess again! \n"
+				print("Guess again! \n")
 					
 		# *** GAME LOOP END ***
 	
 	#if player wins or player hits game over - play again or quit.
 	while True:
-		replay = raw_input("Do you want to play again?  Type 'yes' or 'no'.: ").strip().lower()
-		print "\n"
+		replay = input("Do you want to play again?  Type 'yes' or 'no'.: ").strip().lower()
+		print("\n")
 		if replay == "yes":
-			print "Alright, let's play again!"
+			print("Alright, let's play again!")
 			play_hangman()
 			break
 		elif replay == "no":
-			print "Thanks for playing!"
+			print("Thanks for playing!")
 			break 
 		else:
-			print "Sorry, I'm not sure what you mean by {}.".format(replay)
+			print("Sorry, I'm not sure what you mean by {}.".format(replay))
 			
 
-
+play_hangman()
