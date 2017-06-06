@@ -2,7 +2,9 @@
 
 from random import randint
 
-word_list = ["cat fur", "sunshine", "silly bear", "fantastic", "this is a long phrase", "this is super cool", "bunnies", "python", "coding"]
+word_file = open("word_list.txt")
+word_list = word_file.read().split("\n")
+
 
 
 def select_answer(lst):
@@ -92,6 +94,14 @@ def player_wins(board):
 
 #[fn] check validity of guess input
 def valid_guess(guess, guess_list):
+    """
+    Check validity of guess input
+    Arguments:
+    guess - string representing player's guess
+    guess_list - list of strings representing guesses already made by player
+    Returns:
+    True if guess is valid, False otherwise
+    """
     valid = True
     if guess == "":
         print("You need to guess something!\n")
@@ -112,7 +122,7 @@ def valid_guess(guess, guess_list):
 
 def play_hangman():
     """
-    Main function to start Hangman game
+    Hangman gameplay loop
     """
 
     guess_list = []
@@ -175,6 +185,9 @@ def play_hangman():
         # *** GAME LOOP END ***
 
 def start_game():
+    """
+    Main function to start Hangman game
+    """
     while True:
         replay = input("Do you want to play Hangman? Type 'yes' or 'no'.: ").strip().lower()
         print("\n")
